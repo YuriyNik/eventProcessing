@@ -1,0 +1,28 @@
+# Go build artifacts
+/bin/
+/build/
+/dist/
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Go modules
+go.sum
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# Logs
+*.log
+/logs/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Docker
+/docker-data/
