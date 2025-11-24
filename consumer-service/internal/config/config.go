@@ -12,7 +12,7 @@ func Load() Config {
 	return Config{
 		KafkaBrokers: getenv("KAFKA_BROKERS", "localhost:19092"),
 		Topic:        getenv("TOPIC", "events"),
-		GroupID:      getenv("GROUP_ID", "consumer-1"),
+		GroupID:      getenv("GROUP_ID", "consumer-group-1"),
 	}
 }
 

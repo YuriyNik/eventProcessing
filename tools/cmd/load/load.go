@@ -8,13 +8,13 @@ import (
 )
 
 func main() {
-	const from = 10000
-	const total = 20000
+	const from = 0
+	const total = 10000
 	const workers = 100
 
 	sem := make(chan struct{}, workers)
 	var wg sync.WaitGroup
-	fmt.Println("Starting load generator for ", total, "requests with", workers, "concurrent workers")
+	fmt.Println("Starting load generator for ", total-from, "requests with", workers, "concurrent workers")
 	for i := from; i < total; i++ {
 		wg.Add(1)
 		sem <- struct{}{}

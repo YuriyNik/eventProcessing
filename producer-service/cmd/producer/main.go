@@ -6,6 +6,7 @@ import (
 	"producer-service/internal/handlers"
 	"producer-service/internal/httpserver"
 	"producer-service/internal/kafka"
+	"time"
 
 	"github.com/gorilla/mux"
 	"github.com/rs/zerolog/log"
@@ -14,9 +15,11 @@ import (
 func main() {
 	cfg := config.Load()
 
+	localDedup := dedup.NewLocalDedup(30 * time.Second) // TTL 30s
+
 	dedupSvc := dedup.New(cfg.RedisAddr)
 	producer := kafka.New(cfg.KafkaBrokers, "events")
-	h := handlers.New(dedupSvc, producer)
+	h := handlers.New(dedupSvc, localDedup, producer)
 
 	r := mux.NewRouter()
 	r.HandleFunc("/send", h.Send).Methods("POST")
