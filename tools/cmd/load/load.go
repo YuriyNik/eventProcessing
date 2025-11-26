@@ -8,8 +8,8 @@ import (
 )
 
 func main() {
-	const from = 0
-	const total = 10000
+	const from = 5000
+	const total = 50000
 	const workers = 100
 
 	sem := make(chan struct{}, workers)

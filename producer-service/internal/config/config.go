@@ -12,7 +12,7 @@ type Config struct {
 
 func Load() Config {
 	return Config{
-		KafkaBrokers: getenv("KAFKA_BROKERS", "localhost:19092"),
+		KafkaBrokers: getenv("KAFKA_BROKERS", "localhost:9092"),
 		RedisAddr:    getenv("REDIS_ADDR", "localhost:6379"),
 		Port:         getenv("PORT", "8082"),
 	}

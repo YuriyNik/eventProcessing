@@ -1,21 +1,24 @@
 package main
 
 import (
-	"consumer-service/internal/config"
+	//"consumer-service/internal/config"
 	"consumer-service/internal/kafka"
 	"context"
-
-	"github.com/rs/zerolog/log"
+	"log"
+	"os"
+	"os/signal"
 )
 
 func main() {
-	cfg := config.Load()
+	consumer := kafka.NewConsumer(
+		[]string{"localhost:9092"},
+		"events",
+		"batch-consumer-group",
+	)
 
-	consumer := kafka.New(cfg.KafkaBrokers, cfg.Topic, cfg.GroupID)
+	ctx, cancel := signal.NotifyContext(context.Background(), os.Interrupt)
+	defer cancel()
 
-	log.Info().Msg("consumer started")
-
-	consumer.Run(context.Background(), func(key, value []byte) {
-		log.Info().Msgf("Processing message... received key=%s value=%s", key, value)
-	})
+	log.Println("Starting batch consumer…")
+	consumer.Run(ctx)
 }
