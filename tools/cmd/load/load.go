@@ -8,9 +8,9 @@ import (
 )
 
 func main() {
-	const from = 5000
-	const total = 50000
-	const workers = 100
+	const from = 125000
+	const total = 150000
+	const workers = 150
 
 	sem := make(chan struct{}, workers)
 	var wg sync.WaitGroup
@@ -26,7 +26,7 @@ func main() {
 			<-sem
 		}(i)
 	}
-
+	fmt.Println("Waiting for goroutines to finish")
 	wg.Wait()
 	fmt.Println("All requests sent")
 }

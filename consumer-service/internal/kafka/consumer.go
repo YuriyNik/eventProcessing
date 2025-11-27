@@ -30,7 +30,7 @@ func NewConsumer(brokers []string, topic, group string) *Consumer {
 }
 
 func (c *Consumer) Run(ctx context.Context) {
-	ticker := time.NewTicker(10 * time.Second)
+	ticker := time.NewTicker(30 * time.Second)
 	defer ticker.Stop()
 
 	go func() {
@@ -69,7 +69,7 @@ func (c *Consumer) flushAndCommit(ctx context.Context) {
 		len(batch.Messages), batch.FirstOffset, batch.LastOffset)
 
 	// Simulate upload delay
-	time.Sleep(500 * time.Millisecond)
+	time.Sleep(100 * time.Millisecond)
 
 	// Manual commit ALWAYS on last offset
 	err := c.reader.CommitMessages(ctx, batch.Messages[len(batch.Messages)-1])
