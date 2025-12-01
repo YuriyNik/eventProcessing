@@ -8,8 +8,8 @@ import (
 )
 
 func main() {
-	const from = 125000
-	const total = 150000
+	const from = 177000
+	const total = 178000
 	const workers = 150
 
 	sem := make(chan struct{}, workers)
@@ -22,7 +22,7 @@ func main() {
 		go func(n int) {
 			defer wg.Done()
 			body := []byte(fmt.Sprintf(`{"id": "%d", "payload": "hello-%d"}`, n, n))
-			http.Post("http://localhost:8082/send", "application/json", bytes.NewBuffer(body))
+			http.Post("http://localhost:8083/send", "application/json", bytes.NewBuffer(body))
 			<-sem
 		}(i)
 	}
